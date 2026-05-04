@@ -47,7 +47,7 @@ export default function HeroSection() {
 
               <div className="relative p-[4px] rounded-full bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-300">
                 <img
-                  src="/public/fak.jpeg"
+                  src="/fak.jpeg"
                   alt="Profile"
                   className="w-56 h-56 md:w-72 md:h-72 object-cover rounded-full border-4 border-[#020617]"
                 />
