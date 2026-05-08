@@ -133,7 +133,7 @@ export default function ContactSection() {
             bg-clip-text text-transparent
             "
           >
-            Let&apos;s Build Something Amazing
+           Send A Signal
           </h2>
 
           {/* LINE */}
@@ -299,7 +299,7 @@ export default function ContactSection() {
                 font-medium pt-4
                 "
               >
-                ✦ Turning ideas into digital experiences.
+                ✦ Building Dreams Through Code.
               </motion.p>
             </motion.div>
 
