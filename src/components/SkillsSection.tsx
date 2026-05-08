@@ -1,137 +1,240 @@
 import { motion } from 'framer-motion';
+import {
+  FlaskConical,
+  Globe,
+  Sigma,
+  Atom,
+  FlaskRound,
+  Dna,
+} from 'lucide-react';
 
-const skills = {
-  frontend: [
-    { name: 'React', level: 95 },
-    { name: 'TypeScript', level: 90 },
-    { name: 'Next.js', level: 88 },
-    { name: 'Tailwind CSS', level: 95 },
-    { name: 'Vue.js', level: 75 },
-  ],
-  backend: [
-    { name: 'Node.js', level: 90 },
-    { name: 'Python', level: 85 },
-    { name: 'PostgreSQL', level: 88 },
-    { name: 'MongoDB', level: 82 },
-    { name: 'GraphQL', level: 78 },
-  ],
-  tools: [
-    { name: 'Git', level: 95 },
-    { name: 'Docker', level: 80 },
-    { name: 'AWS', level: 75 },
-    { name: 'Figma', level: 85 },
-    { name: 'CI/CD', level: 82 },
-  ],
-};
+const academics = [
+  {
+    title: 'Science',
+    icon: <FlaskConical className="w-7 h-7 text-cyan-300" />,
+    gradient: 'from-blue-500 via-sky-400 to-cyan-300',
+    glow: 'shadow-[0_0_70px_rgba(56,189,248,0.25)]',
+    data: [
+      { name: 'Mathematics', level: 85, icon: <Sigma size={16} /> },
+      { name: 'Physics', level: 80, icon: <Atom size={16} /> },
+      { name: 'Chemistry', level: 78, icon: <FlaskRound size={16} /> },
+      { name: 'Biology', level: 82, icon: <Dna size={16} /> },
+    ],
+  },
+  {
+    title: 'Languages',
+    icon: <Globe className="w-7 h-7 text-blue-300" />,
+    gradient: 'from-cyan-400 via-sky-400 to-blue-500',
+    glow: 'shadow-[0_0_70px_rgba(59,130,246,0.25)]',
+    data: [
+      { name: 'Bahasa Indonesia', level: 88, icon: '🇮🇩' },
+      { name: 'English', level: 75, icon: '🇺🇸' },
+      { name: 'Arabic', level: 80, icon: '🇸🇦' },
+    ],
+  },
+];
 
-function SkillBar({ name, level, delay }: { name: string; level: number; delay: number }) {
+function SkillBar({ skill, gradient }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay }}
-      className="space-y-2"
-    >
-      <div className="flex justify-between items-center">
-        <span className="font-medium">{name}</span>
-        <span className="text-sm text-muted-foreground">{level}%</span>
+    <div className="space-y-2">
+      <div className="flex justify-between text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">{skill.icon}</span>
+
+          <span className="text-gray-200">
+            {skill.name}
+          </span>
+        </div>
+
+        <span className="text-gray-400">
+          {skill.level}%
+        </span>
       </div>
-      <div className="h-2 bg-muted rounded-full overflow-hidden">
+
+      <div className="h-2 bg-white/10 rounded-full overflow-hidden relative">
         <motion.div
           initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: delay + 0.2, ease: 'easeOut' }}
-          className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
-        />
+          whileInView={{ width: `${skill.level}%` }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          className={`h-full rounded-full bg-gradient-to-r ${gradient} relative`}
+        >
+          <div className="absolute inset-0 bg-white/30 blur-sm opacity-40 animate-pulse" />
+        </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 export default function SkillsSection() {
   return (
-    <section id="skills" className="py-20 md:py-32">
-      <div className="container mx-auto px-4">
+    <section
+      id="skills"
+      className="relative py-24 overflow-hidden
+      bg-gradient-to-b from-[#020617] via-[#020c1b] to-[#000814]"
+    >
+      {/* 🌌 BACKGROUND */}
+      <div className="absolute inset-0 pointer-events-none">
+
+        <div
+          className="absolute top-[-120px] left-[-120px]
+          w-[320px] h-[320px]
+          bg-blue-500/15 blur-[140px] rounded-full"
+        />
+
+        <div
+          className="absolute bottom-[-120px] right-[-120px]
+          w-[320px] h-[320px]
+          bg-cyan-400/15 blur-[140px] rounded-full"
+        />
+
+        <div
+          className="absolute top-[20%] right-[10%]
+          w-[260px] h-[260px]
+          bg-sky-500/10 blur-[120px] rounded-full"
+        />
+
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 md:px-10 relative z-10">
+
+        {/* HEADER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-medium mb-2 block">Keahlian</span>
-          <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">
-            Skills &amp; Teknologi
+          <p
+            className="text-sm font-semibold tracking-[0.25em]
+            uppercase text-blue-400/80 mb-3"
+          >
+            Academics
+          </p>
+
+          <h2
+            className="text-3xl md:text-5xl font-bold mb-5
+            bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-300
+            bg-clip-text text-transparent"
+          >
+            Academic Strengths
           </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
+
+          {/* ✨ LINE */}
+          <motion.div
+            initial={{ width: 0, opacity: 0 }}
+            whileInView={{ width: 120, opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="relative h-[3px] mx-auto rounded-full
+            bg-gradient-to-r from-blue-500 via-sky-400 to-cyan-300 overflow-hidden"
+          >
+            <motion.div
+              initial={{ x: '-100%' }}
+              whileInView={{ x: '100%' }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+              className="absolute inset-0
+              bg-gradient-to-r from-transparent via-white/40 to-transparent"
+            />
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-sm md:text-base
+            text-gray-400 max-w-2xl mx-auto
+            leading-relaxed mt-6"
+          >
+            Developing a strong academic foundation in science while enhancing
+            communication skills through multiple languages, supporting both
+            analytical thinking and global interaction in learning and real-world applications.
+          </motion.p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Frontend */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="p-6 glass rounded-2xl shadow-card hover:shadow-card-hover transition-shadow"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-primary/10">
-                <span className="text-2xl">🎨</span>
-              </div>
-              <h3 className="font-display text-xl font-bold">Frontend</h3>
-            </div>
-            <div className="space-y-4">
-              {skills.frontend.map((skill, index) => (
-                <SkillBar key={skill.name} {...skill} delay={index * 0.1} />
-              ))}
-            </div>
-          </motion.div>
+        {/* GRID */}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+          {academics.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: index * 0.2,
+                duration: 0.8,
+              }}
+              whileHover={{
+                y: -10,
+                scale: 1.02,
+              }}
+              className="relative group h-full"
+            >
 
-          {/* Backend */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="p-6 glass rounded-2xl shadow-card hover:shadow-card-hover transition-shadow"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-primary/10">
-                <span className="text-2xl">⚙️</span>
-              </div>
-              <h3 className="font-display text-xl font-bold">Backend</h3>
-            </div>
-            <div className="space-y-4">
-              {skills.backend.map((skill, index) => (
-                <SkillBar key={skill.name} {...skill} delay={index * 0.1} />
-              ))}
-            </div>
-          </motion.div>
+              {/* GLOW */}
+              <div
+                className={`absolute inset-0 rounded-3xl
+                bg-gradient-to-r ${item.gradient}
+                opacity-15 blur-2xl
+                group-hover:opacity-30 transition`}
+              />
 
-          {/* Tools */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="p-6 glass rounded-2xl shadow-card hover:shadow-card-hover transition-shadow"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-3 rounded-xl bg-primary/10">
-                <span className="text-2xl">🛠️</span>
+              {/* CARD */}
+              <div
+                className="relative p-7 rounded-3xl
+                backdrop-blur-xl
+                bg-white/[0.03]
+                border border-white/10
+                overflow-hidden h-full"
+              >
+
+                <div
+                  className={`absolute inset-0 opacity-0
+                  group-hover:opacity-100 transition duration-500
+                  ${item.glow}`}
+                />
+
+                <div className="relative z-10">
+
+                  {/* ICON */}
+                  <div className="text-center mb-6">
+                    <motion.div
+                      animate={{ rotate: [0, 8, -8, 0] }}
+                      transition={{
+                        duration: 5,
+                        repeat: Infinity,
+                      }}
+                      className="flex justify-center"
+                    >
+                      {item.icon}
+                    </motion.div>
+
+                    <h3
+                      className="font-semibold text-2xl
+                      text-white mt-3"
+                    >
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  {/* SKILLS */}
+                  <div className="space-y-5">
+                    {item.data.map((skill) => (
+                      <SkillBar
+                        key={skill.name}
+                        skill={skill}
+                        gradient={item.gradient}
+                      />
+                    ))}
+                  </div>
+
+                </div>
               </div>
-              <h3 className="font-display text-xl font-bold">Tools &amp; Lainnya</h3>
-            </div>
-            <div className="space-y-4">
-              {skills.tools.map((skill, index) => (
-                <SkillBar key={skill.name} {...skill} delay={index * 0.1} />
-              ))}
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
+
       </div>
     </section>
   );
