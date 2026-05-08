@@ -48,7 +48,14 @@ export default function HeroSection() {
       <div className="max-w-7xl mx-auto w-full relative z-10">
 
         {/* GRID */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-center justify-items-center">
+        <div
+          className="
+          flex flex-col-reverse
+          lg:grid lg:grid-cols-2
+          gap-8 md:gap-10
+          items-center justify-items-center
+          "
+        >
 
           {/* ✨ TEXT */}
           <motion.div
@@ -56,8 +63,8 @@ export default function HeroSection() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="w-full max-w-md
-            flex flex-col items-center md:items-start
-            text-center md:text-left"
+            flex flex-col items-center lg:items-start
+            text-center lg:text-left"
           >
 
             {/* LABEL */}
@@ -80,13 +87,12 @@ export default function HeroSection() {
 
             {/* 📝 DESC */}
             <p className="text-base md:text-lg text-gray-300 mb-6 leading-relaxed max-w-md">
-              Designing and building modern web experiences 
+              Designing and building modern web experiences
               with passion and precision.
-            
             </p>
 
             {/* 🔘 BUTTON + SOCIAL */}
-            <div className="flex items-center justify-center md:justify-start gap-4 mb-8">
+            <div className="flex items-center justify-center lg:justify-start gap-4 mb-8">
 
               {/* BUTTON */}
               <button
@@ -133,7 +139,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="flex justify-center mt-6 md:mt-10"
+            className="flex justify-center mt-2 lg:mt-10"
           >
             <motion.div
               animate={{

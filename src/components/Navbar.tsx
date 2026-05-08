@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
-export default function Navbar({ isDark, toggleTheme }) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState('#home');
   const [scrolled, setScrolled] = useState(false);
@@ -24,9 +24,11 @@ export default function Navbar({ isDark, toggleTheme }) {
 
       navItems.forEach((item) => {
         const el = document.querySelector(item.href);
+
         if (!el) return;
 
         const rect = el.getBoundingClientRect();
+
         if (rect.top <= 120 && rect.bottom >= 120) {
           setActive(item.href);
         }
@@ -34,12 +36,19 @@ export default function Navbar({ isDark, toggleTheme }) {
     };
 
     window.addEventListener('scroll', handleScroll);
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollTo = (href) => {
     const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+
+    if (el) {
+      el.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
+
     setIsOpen(false);
   };
 
@@ -52,6 +61,7 @@ export default function Navbar({ isDark, toggleTheme }) {
         bg-gradient-to-r from-blue-500 via-cyan-400 to-sky-300"
       />
 
+      {/* NAVBAR */}
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -63,24 +73,26 @@ export default function Navbar({ isDark, toggleTheme }) {
             scrolled
               ? `
               backdrop-blur-2xl
-              bg-[#020617]/80 
+              bg-[#020617]/80
               border border-blue-500/10
               shadow-[0_10px_40px_rgba(2,6,23,0.8)]
               `
               : 'bg-transparent'
           }`}
         >
+
           {/* LOGO */}
           <motion.div
             onClick={() => scrollTo('#home')}
             className="cursor-pointer text-lg md:text-xl font-bold
-            bg-gradient-to-r from-blue-400 via-cyan-400 to-sky-300 bg-clip-text text-transparent"
+            bg-gradient-to-r from-blue-400 via-cyan-400 to-sky-300
+            bg-clip-text text-transparent"
             whileHover={{ scale: 1.05 }}
           >
             POKA
           </motion.div>
 
-          {/* DESKTOP */}
+          {/* DESKTOP MENU */}
           <div className="hidden md:flex items-center gap-4">
             {navItems.map((item) => {
               const isActive = active === item.href;
@@ -102,43 +114,24 @@ export default function Navbar({ isDark, toggleTheme }) {
                   {isActive && (
                     <motion.div
                       layoutId="nav-active"
-                      className="absolute inset-0 rounded-full 
-                      bg-gradient-to-r from-blue-600 to-cyan-500 
-                      shadow-[0_0_20px_rgba(59,130,246,0.5)] -z-10"
+                      className="absolute inset-0 rounded-full
+                      bg-gradient-to-r from-blue-600 to-cyan-500
+                      shadow-[0_0_20px_rgba(59,130,246,0.5)]
+                      -z-10"
                     />
                   )}
                 </div>
               );
             })}
+          </div>
 
-            {/* THEME */}
+          {/* MOBILE BUTTON */}
+          <div className="flex md:hidden items-center">
             <Button
               variant="ghost"
               size="icon"
-              onClick={toggleTheme}
-              className="rounded-full hover:bg-white/10"
+              onClick={() => setIsOpen(!isOpen)}
             >
-              <AnimatePresence mode="wait">
-                {isDark ? (
-                  <motion.div key="sun" initial={{ rotate: -90 }} animate={{ rotate: 0 }}>
-                    <Sun />
-                  </motion.div>
-                ) : (
-                  <motion.div key="moon" initial={{ rotate: 90 }} animate={{ rotate: 0 }}>
-                    <Moon />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </Button>
-          </div>
-
-          {/* MOBILE */}
-          <div className="flex md:hidden items-center gap-2">
-            <Button variant="ghost" size="icon" onClick={toggleTheme}>
-              {isDark ? <Sun /> : <Moon />}
-            </Button>
-
-            <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X /> : <Menu />}
             </Button>
           </div>
@@ -163,7 +156,7 @@ export default function Navbar({ isDark, toggleTheme }) {
                 <button
                   key={item.href}
                   onClick={() => scrollTo(item.href)}
-                  className="text-left text-lg font-medium text-gray-400 
+                  className="text-left text-lg font-medium text-gray-400
                   hover:text-cyan-400 transition"
                 >
                   {item.label}
